@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/layout/layout'
-import App from './App'
+import CreditCardValidator from './pages/CreditCardValidator'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <App />,
+        element: <CreditCardValidator />,
       },
     ],
   },
