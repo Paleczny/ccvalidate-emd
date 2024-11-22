@@ -4,7 +4,7 @@ import { Header, Footer } from './'
 
 const Layout = () => {
   return (
-    <div className="d-flex flex-column min-vh-100 bg-secondary bg-opacity-25 p-4">
+    <div className="d-flex flex-column min-vh-100 bg-light bg-opacity-25 p-4">
       <Header />
       <main className="flex-grow-1">
         <Outlet />

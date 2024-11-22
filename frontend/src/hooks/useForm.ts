@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react'
-import { UseFormProps } from '../types/UseFormProps'
+import { UseFormReturnProps } from '../types/UseFormReturnProps'
 
-export const useForm = <T>(initialFormValues: T): UseFormProps<T> => {
+export const useForm = <T>(initialFormValues: T): UseFormReturnProps<T> => {
   const [values, setValues] = useState<T>(initialFormValues)
 
   const handleFormChanges = (e: ChangeEvent<any>) => {

@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react'
 
-export interface UseFormProps<T> {
+export interface UseFormReturnProps<T> {
   values: T
   handleFormChanges: (e: ChangeEvent<any>) => void
   clearForm: () => void

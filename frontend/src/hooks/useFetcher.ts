@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { UseFetcherReturnProps } from '../types/UseFetcherReturnProps'
 
-export const useFetcher = (method: 'POST' | 'GET', url: string, body?: BodyInit) => {
+export const useFetcher = <T>(method: 'POST' | 'GET', url: string, body?: BodyInit): UseFetcherReturnProps<T> => {
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useState<T | null>(null)
 
   const fetchApi = async () => {
     setLoading(true)
