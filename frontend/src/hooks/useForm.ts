@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 import { UseFormProps } from '../types/UseFormProps'
 
-export const useForm = <T>(callback: (e?: any) => void, initialFormValues: T): UseFormProps<T> => {
+export const useForm = <T>(initialFormValues: T): UseFormProps<T> => {
   const [values, setValues] = useState<T>(initialFormValues)
 
   const handleFormChanges = (e: ChangeEvent<any>) => {
@@ -17,11 +17,5 @@ export const useForm = <T>(callback: (e?: any) => void, initialFormValues: T): U
     setValues(initialFormValues)
   }
 
-  const handleFormSubmit = (e: any) => {
-    e.preventDefault()
-    callback(e)
-    clearForm()
-  }
-
-  return { values, handleFormChanges, clearForm, handleFormSubmit }
+  return { values, handleFormChanges, clearForm }
 }

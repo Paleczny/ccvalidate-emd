@@ -8,13 +8,13 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/validate', (req: Request, res: Response) => {
-    const {cardNumber} = req.body;
+    const {ccNumber} = req.body;
 
-    if (!cardNumber || typeof cardNumber !== 'string') {
+    if (!ccNumber || typeof ccNumber !== 'string') {
         // return res.status(400).json({ error: 'Invalid input' });
         res.status(400).json({error: 'Invalid input'});
     } else {
-        const isValid = luhnCheck(cardNumber);
+        const isValid = luhnCheck(ccNumber);
         res.json({isValid});
 
     }
