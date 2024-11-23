@@ -1,7 +1,8 @@
+import React, { act } from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import React, { act } from 'react'
 import { useForm } from '../useForm'
+import { UseFormProps, UseFormReturnProps } from "../../types/UseForm.types"
 
 const user = userEvent.setup()
 
@@ -10,8 +11,9 @@ interface FormValues {
   email: string
 }
 
-const TestComponent = ({ initialValues }: { initialValues: FormValues }) => {
-  const { values, handleFormChanges, clearForm } = useForm({ initialFormValues: initialValues })
+const TestComponent = ({ initialFormValues }: UseFormProps<any>) => {
+
+  const { values, handleFormChanges, clearForm }: UseFormReturnProps<FormValues> = useForm({ initialFormValues: initialFormValues })
 
   return (
     <div>
@@ -31,7 +33,7 @@ describe('useForm Hook', () => {
   }
 
   it('should initialize form with initial values', () => {
-    const { getByTestId } = render(<TestComponent initialValues={initialFormValues} />)
+    const { getByTestId } = render(<TestComponent initialFormValues={initialFormValues} />)
     const nameInput = getByTestId('name-input') as HTMLInputElement
     const emailInput = getByTestId('email-input') as HTMLInputElement
 
@@ -40,7 +42,7 @@ describe('useForm Hook', () => {
   })
 
   it('should update form values on handleFormChanges', async () => {
-    const { getByTestId } = render(<TestComponent initialValues={initialFormValues} />)
+    const { getByTestId } = render(<TestComponent initialFormValues={initialFormValues} />)
     const nameInput = getByTestId('name-input') as HTMLInputElement
 
     await act(async () => {
@@ -51,7 +53,7 @@ describe('useForm Hook', () => {
   })
 
   it('should reset form values on clearForm', async () => {
-    const { getByTestId } = render(<TestComponent initialValues={initialFormValues} />)
+    const { getByTestId } = render(<TestComponent initialFormValues={initialFormValues} />)
     const nameInput = getByTestId('name-input') as HTMLInputElement
     const clearButton = getByTestId('clear-button')
 
