@@ -1,7 +1,7 @@
 import React, { act } from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { useFetcher } from '../useFetcher'
-import { UseFetcherProps, UseFetcherReturnProps } from "../../types/UseFetcher.types"
+import { UseFetcherProps, UseFetcherReturnProps } from '../../types/UseFetcher.types'
 
 const TestComponent = ({ method, url, body }: UseFetcherProps) => {
   const { loading, result, fetchApi }: UseFetcherReturnProps<any> = useFetcher({ method, url, body })

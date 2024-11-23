@@ -2,7 +2,7 @@ import React, { act } from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { useForm } from '../useForm'
-import { UseFormProps, UseFormReturnProps } from "../../types/UseForm.types"
+import { UseFormProps, UseFormReturnProps } from '../../types/UseForm.types'
 
 const user = userEvent.setup()
 
@@ -12,8 +12,9 @@ interface FormValues {
 }
 
 const TestComponent = ({ initialFormValues }: UseFormProps<any>) => {
-
-  const { values, handleFormChanges, clearForm }: UseFormReturnProps<FormValues> = useForm({ initialFormValues: initialFormValues })
+  const { values, handleFormChanges, clearForm }: UseFormReturnProps<FormValues> = useForm({
+    initialFormValues: initialFormValues,
+  })
 
   return (
     <div>
