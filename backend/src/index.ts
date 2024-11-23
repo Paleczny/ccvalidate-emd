@@ -10,17 +10,17 @@ app.use(express.json());
 app.post('/validate', (req: Request, res: Response) => {
     const {ccNumber} = req.body;
 
-    if (!ccNumber || typeof ccNumber !== 'string') {
-        // return res.status(400).json({ error: 'Invalid input' });
-        res.status(400).json({error: 'Invalid input'});
+    // Adding timeout to slow the response down to showcase the loading on the frontend
+    setTimeout(() => {
+    if (!ccNumber || typeof ccNumber !== "string") {
+      res.status(400).json({ error: "Invalid input" })
     } else {
-        const isValid = luhnCheck(ccNumber);
-        res.json({isValid});
-
+      const isValid = luhnCheck(ccNumber)
+      res.json({ isValid })
     }
+  }, 1000)
 
-    // res.send('Validation endpoint');
-});
+})
 
 function luhnCheck(cardNumber: string): boolean {
     let sum = 0;

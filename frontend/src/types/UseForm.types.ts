@@ -5,3 +5,7 @@ export interface UseFormReturnProps<T> {
   handleFormChanges: (e: ChangeEvent<any>) => void
   clearForm: () => void
 }
+
+export interface UseFormProps<T> {
+  initialFormValues: T
+}

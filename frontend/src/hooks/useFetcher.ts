@@ -1,7 +1,23 @@
 import { useState } from 'react'
-import { UseFetcherReturnProps } from '../types/UseFetcherReturnProps'
+import { UseFetcherProps, UseFetcherReturnProps } from '../types/UseFetcher.types'
 
-export const useFetcher = <T>(method: 'POST' | 'GET', url: string, body?: BodyInit): UseFetcherReturnProps<T> => {
+/**
+ * Custom hook to fetch data from an API endpoint using the Fetch API.
+ *
+ * @template T - The type of the data expected in the response.
+ * @param {UseFetcherProps} props - An object containing:
+ *   - method: The HTTP method to use for the request (e.g., 'POST', 'GET').
+ *   - url: The URL endpoint to which the request will be sent.
+ *   - body: Optional body to send with the request (used for POST requests).
+ * @returns {UseFetcherReturnProps<T>} - Returns an object containing the loading state, the result of the request, and the function to execute the fetch.
+ *
+ * @example
+ * const { loading, result, fetchApi } = useFetcher({ method: 'POST', url: '/api/data', body: JSON.stringify({ key: 'value' }) });
+ * useEffect(() => {
+ *   fetchApi();
+ * }, []);
+ */
+export const useFetcher = <T>({ method, url, body }: UseFetcherProps): UseFetcherReturnProps<T> => {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<T | null>(null)
 

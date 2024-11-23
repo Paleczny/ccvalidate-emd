@@ -1,21 +1,23 @@
+import React from 'react'
 import { useForm } from '../hooks/useForm'
 import { CreditCard } from '../types/CreditCard'
-import { UseFormReturnProps } from '../types/UseFormReturnProps'
-import React from 'react'
-import { useFetcher } from '../hooks/useFetcher'
 import { CreditCardValidatorResponse } from '../types/CreditCardValidatorResponse'
-import { UseFetcherReturnProps } from '../types/UseFetcherReturnProps'
+import { useFetcher } from '../hooks/useFetcher'
+import { UseFormReturnProps } from '../types/UseForm.types'
+import { UseFetcherReturnProps } from '../types/UseFetcher.types'
 
 const CreditCardValidator = () => {
   const { values, handleFormChanges }: UseFormReturnProps<CreditCard> = useForm({
-    ccNumber: '',
+    initialFormValues: {
+      ccNumber: '',
+    },
   })
 
-  const { loading, result, fetchApi }: UseFetcherReturnProps<CreditCardValidatorResponse> = useFetcher(
-    'POST',
-    'http://localhost:5000/validate',
-    JSON.stringify(values),
-  )
+  const { loading, result, fetchApi }: UseFetcherReturnProps<CreditCardValidatorResponse> = useFetcher({
+    method: 'POST',
+    url: 'http://localhost:5000/validate',
+    body: JSON.stringify(values),
+  })
 
   const formatCardNumber = (): string => {
     return values.ccNumber.length === 0
@@ -39,11 +41,13 @@ const CreditCardValidator = () => {
   return (
     <div className="container  d-flex flex-column justify-content-center align-items-center">
       <div
-        className={`mt-5 rounded-2 card-4 shadow-sm bg-secondary bg-opacity-25 w-100 border border-2 ${result && !result.isValid && 'border-danger'} ${result && result.isValid && 'border-success'}`}
+        className={`mt-5 rounded-2 card-4 shadow-sm bg-secondary bg-opacity-25
+        ${loading && 'placeholder-wave placeholder'} 
+        w-100 border border-2 ${result && !result.isValid && 'border-danger'} ${result && result.isValid && 'border-success'}`}
         style={{ maxWidth: '400px', minHeight: '220px' }}
       >
         <form onSubmit={fetchApi}>
-          <div className="mb-3 mx-3 py-3 ">
+          <div className="mb-3 mx-3 py-3">
             <h4 className="form-label">Credit Card</h4>
             <br />
             <text className="d-flex justify-content-center" style={{ fontFamily: 'Futura' }}>
@@ -71,7 +75,7 @@ const CreditCardValidator = () => {
         type="submit"
         disabled={!values.ccNumber || loading}
         onClick={fetchApi}
-        className="mt-5 w-100 btn btn-primary"
+        className="mt-5 w-50 btn btn-primary"
       >
         Validate
       </button>
