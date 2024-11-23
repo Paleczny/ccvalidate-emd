@@ -50,11 +50,16 @@ const CreditCardValidator = () => {
           <div className="mb-3 mx-3 py-3">
             <h4 className="form-label">Credit Card</h4>
             <br />
-            <h6 className="d-flex justify-content-center" style={{ fontFamily: 'Futura' }}>
+            <h6
+              className="d-flex justify-content-center"
+              style={{ fontFamily: 'Futura' }}
+              data-testid="card-number-formatted"
+            >
               {formatCardNumber()}
             </h6>
             <input
               className="rounded-4 px-5-3 form-control mt-2"
+              data-testid="card-number-input"
               name="ccNumber"
               type="text"
               placeholder="•••• •••• •••• ••••"
@@ -65,17 +70,22 @@ const CreditCardValidator = () => {
             />
           </div>
           {result && (
-            <h6 className="d-flex justify-content-center" style={{ fontFamily: 'Courier' }}>
+            <h6
+              className="d-flex justify-content-center"
+              data-testid="validation-text"
+              style={{ fontFamily: 'Courier' }}
+            >
               {!result.isValid ? 'Invalid' : 'Valid'} Credit Card Number
             </h6>
           )}
         </form>
       </div>
       <button
+        className="mt-5 w-50 btn btn-primary"
+        data-testid="validate-button"
         type="submit"
         disabled={!values.ccNumber || loading}
         onClick={fetchApi}
-        className="mt-5 w-50 btn btn-primary"
       >
         Validate
       </button>
