@@ -50,9 +50,9 @@ const CreditCardValidator = () => {
           <div className="mb-3 mx-3 py-3">
             <h4 className="form-label">Credit Card</h4>
             <br />
-            <text className="d-flex justify-content-center" style={{ fontFamily: 'Futura' }}>
+            <h6 className="d-flex justify-content-center" style={{ fontFamily: 'Futura' }}>
               {formatCardNumber()}
-            </text>
+            </h6>
             <input
               className="rounded-4 px-5-3 form-control mt-2"
               name="ccNumber"
@@ -65,9 +65,9 @@ const CreditCardValidator = () => {
             />
           </div>
           {result && (
-            <text className="d-flex justify-content-center" style={{ fontFamily: 'Courier' }}>
+            <h6 className="d-flex justify-content-center" style={{ fontFamily: 'Courier' }}>
               {!result.isValid ? 'Invalid' : 'Valid'} Credit Card Number
-            </text>
+            </h6>
           )}
         </form>
       </div>

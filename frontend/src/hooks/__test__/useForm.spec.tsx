@@ -1,0 +1,72 @@
+import { render, waitFor } from '@testing-library/react'
+import { userEvent } from '@testing-library/user-event'
+import React, { act } from 'react'
+import { useForm } from '../useForm'
+
+const user = userEvent.setup()
+
+interface FormValues {
+  name: string
+  email: string
+}
+
+const TestComponent = ({ initialValues }: { initialValues: FormValues }) => {
+  const { values, handleFormChanges, clearForm } = useForm({ initialFormValues: initialValues })
+
+  return (
+    <div>
+      <input type="text" name="name" value={values.name} onChange={handleFormChanges} data-testid="name-input" />
+      <input type="email" name="email" value={values.email} onChange={handleFormChanges} data-testid="email-input" />
+      <button onClick={clearForm} data-testid="clear-button">
+        Clear
+      </button>
+    </div>
+  )
+}
+
+describe('useForm Hook', () => {
+  const initialFormValues: FormValues = {
+    name: '',
+    email: '',
+  }
+
+  it('should initialize form with initial values', () => {
+    const { getByTestId } = render(<TestComponent initialValues={initialFormValues} />)
+    const nameInput = getByTestId('name-input') as HTMLInputElement
+    const emailInput = getByTestId('email-input') as HTMLInputElement
+
+    expect(nameInput.value).toBe(initialFormValues.name)
+    expect(emailInput.value).toBe(initialFormValues.email)
+  })
+
+  it('should update form values on handleFormChanges', async () => {
+    const { getByTestId } = render(<TestComponent initialValues={initialFormValues} />)
+    const nameInput = getByTestId('name-input') as HTMLInputElement
+
+    await act(async () => {
+      await user.type(nameInput, 'Bilbo Baggins')
+    })
+
+    expect(nameInput.value).toBe('Bilbo Baggins')
+  })
+
+  it('should reset form values on clearForm', async () => {
+    const { getByTestId } = render(<TestComponent initialValues={initialFormValues} />)
+    const nameInput = getByTestId('name-input') as HTMLInputElement
+    const clearButton = getByTestId('clear-button')
+
+    await act(async () => {
+      await user.type(nameInput, 'Frodo Baggins')
+    })
+
+    expect(nameInput.value).toBe('Frodo Baggins')
+
+    await act(async () => {
+      clearButton.click()
+    })
+
+    await waitFor(() => {
+      expect(nameInput.value).toBe(initialFormValues.name)
+    })
+  })
+})
