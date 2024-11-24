@@ -41,7 +41,7 @@ const CreditCardValidator = () => {
   return (
     <div className="container  d-flex flex-column justify-content-center align-items-center">
       <div
-        className={`mt-5 rounded-2 card-4 shadow-sm bg-secondary bg-opacity-25
+        className={`mt-5 rounded-4 card-4 shadow-sm bg-secondary bg-opacity-25
         ${loading && 'placeholder-wave placeholder'} 
         w-100 border border-2 ${result && !result.isValid && 'border-danger'} ${result && result.isValid && 'border-success'}`}
         style={{ maxWidth: '400px', minHeight: '220px' }}
@@ -58,7 +58,7 @@ const CreditCardValidator = () => {
               {formatCardNumber()}
             </h6>
             <input
-              className="rounded-4 px-5-3 form-control mt-2"
+              className="rounded-4 px-5-3 form-control mt-4"
               data-testid="card-number-input"
               name="ccNumber"
               type="text"
